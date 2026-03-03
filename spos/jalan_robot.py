@@ -16,7 +16,7 @@ if sys.platform == "win32":
 
 def main():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    FILE_EXCEL = os.path.join(BASE_DIR, 'uploads', 'data_entry.xlsx')
+    FILE_EXCEL = os.path.join(BASE_DIR,'..', 'uploads', 'data_entry.xlsx')
     URL_SITUS = "https://siapp.dipendajatim.go.id/"
 
     try:
@@ -25,7 +25,7 @@ def main():
             return
 
         # Membaca Excel dengan paksa string agar ID Login tidak berubah jadi format ilmiah
-        df = pd.read_excel(FILE_EXCEL, dtype=str, engine='openpyxl')
+        df = pd.read_excel(FILE_EXCEL, sheet_name='spos', dtype=str, engine='openpyxl')
 
         # --- PERBAIKAN: Mengisi sel kosong (NaN) dengan nilai dari baris atasnya ---
         #df = df.ffill()
