@@ -13,6 +13,11 @@ if (file_exists("robot.pid")) {
 } else {
     echo "<h2>Tidak ada robot yang sedang berjalan.</h2>";
 }
-
+echo "<script>
+    alert('Robot Berhasil Dihentikan!');
+    setTimeout(function() {
+        window.location.href = 'index.php';
+    }, 3000); // Jeda 3000ms = 3 detik
+</script>";
 echo "<a href='index.php' style='padding:10px; background:#ddd; text-decoration:none;'>Kembali ke Dashboard</a>";
 ?>

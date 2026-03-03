@@ -28,7 +28,19 @@ def main():
         df = pd.read_excel(FILE_EXCEL, dtype=str, engine='openpyxl')
 
         # --- PERBAIKAN: Mengisi sel kosong (NaN) dengan nilai dari baris atasnya ---
-        df = df.ffill()
+        #df = df.ffill()
+        
+
+        # --- TAMBAHKAN BARIS INI: MENGHENTIKAN LOOP JIKA DATA HABIS ---
+        # Menghapus baris jika kolom 'NO ENTRI' kosong (berarti data sudah habis)
+        df = df.dropna(subset=['NO ENTRI', 'ID_Login', 'Password'])
+        
+        
+        # Memastikan tidak ada data kosong yang tersisa
+        if df.empty:
+            print("Info: Semua data di Excel sudah selesai diproses atau file kosong.")
+            return
+        # -------------------------------------------------------------
         
         # Inisialisasi Browser
         options = webdriver.ChromeOptions()
@@ -41,6 +53,13 @@ def main():
             id_user = str(row['ID_Login']).strip()
             pw = str(row['Password']).strip()
             no_entri = str(row['NO ENTRI']).strip()
+
+            # --- TAMBAHKAN LOGIKA PENGECEKAN DI SINI ---
+            # Jika ID_Login atau Password kosong (bernilai 'nan' atau string kosong)
+            if id_user.lower() == 'nan' or pw.lower() == 'nan' or not id_user or not pw:
+                print(f"⏩ [{index+1}] Baris dilewati karena ID Login/Password kosong.")
+                continue # Langsung lanjut ke baris berikutnya tanpa menjalankan kode di bawahnya
+            # --------------------------------------------
 
             try:
                 # --- PROSES LOGIN ---
@@ -57,6 +76,7 @@ def main():
                 
                 driver.find_element(By.ID, "blogin").click()
                 print(f"[{index+1}] Login ID: {id_user} untuk nomor: {no_entri}")
+                sys.stdout.flush()
                 time.sleep(3)
 
                 # --- PROSES ENTRY DATA ---
