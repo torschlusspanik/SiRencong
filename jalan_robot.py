@@ -15,7 +15,6 @@ if sys.platform == "win32":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def main():
-    # Menentukan lokasi file Excel di dalam folder uploads
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     FILE_EXCEL = os.path.join(BASE_DIR, 'uploads', 'data_entry.xlsx')
     URL_SITUS = "https://siapp.dipendajatim.go.id/"
@@ -25,85 +24,76 @@ def main():
             print(f"Error: File {FILE_EXCEL} tidak ditemukan!")
             return
 
-        df = pd.read_excel(FILE_EXCEL)
-        akun_unik = df['ID_Login'].unique()
+        # Membaca Excel dengan paksa string agar ID Login tidak berubah jadi format ilmiah
+        df = pd.read_excel(FILE_EXCEL, dtype=str, engine='openpyxl')
 
-        # Konfigurasi Browser
+        # --- PERBAIKAN: Mengisi sel kosong (NaN) dengan nilai dari baris atasnya ---
+        df = df.ffill()
+        
+        # Inisialisasi Browser
         options = webdriver.ChromeOptions()
-        # options.add_argument("--headless") # Aktifkan jika ingin berjalan tanpa jendela
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.maximize_window()
-        wait = WebDriverWait(driver, 15)
+        wait = WebDriverWait(driver, 20)
 
-        for id_user in akun_unik:
-            data_akun = df[df['ID_Login'] == id_user]
-            pw = data_akun.iloc[0]['Password']
+        # Looping untuk setiap baris di Excel
+        for index, row in df.iterrows():
+            id_user = str(row['ID_Login']).strip()
+            pw = str(row['Password']).strip()
+            no_entri = str(row['NO ENTRI']).strip()
 
-           # --- PROSES LOGIN ---
-            driver.get(URL_SITUS)
-            
-            # 1. Tunggu hingga kolom input muncul
-            wait.until(EC.presence_of_element_located((By.ID, "blogin"))) # Menunggu tombol login muncul sebagai tanda halaman siap
-            
-            # 2. Cari semua elemen input
-            inputs = driver.find_elements(By.TAG_NAME, "input")
-            
-            # Kolom 1: Kode Samsat (statis: 251)
-            inputs[0].clear()
-            inputs[0].send_keys("251")
-            
-            # Kolom 2: ID Login
-            inputs[1].clear()
-            inputs[1].send_keys(str(id_user))
-            
-            # Kolom 3: Password
-            inputs[2].clear()
-            inputs[2].send_keys(str(pw))
-            
-            # 3. Klik Tombol Login menggunakan ID 'blogin' yang sudah pasti
-            tombol_login = driver.find_element(By.ID, "blogin")
-            tombol_login.click()
-            
-            print(f"Sedang login dengan ID: {id_user}...")
-            
-            # 4. Tunggu transisi halaman setelah login
-            time.sleep(5)
+            try:
+                # --- PROSES LOGIN ---
+                driver.get(URL_SITUS)
+                wait.until(EC.presence_of_element_located((By.ID, "blogin")))
+                
+                inputs = driver.find_elements(By.TAG_NAME, "input")
+                inputs[0].clear()
+                inputs[0].send_keys("251") # Kode Samsat
+                inputs[1].clear()
+                inputs[1].send_keys(id_user) # ID Login
+                inputs[2].clear()
+                inputs[2].send_keys(pw) # Password
+                
+                driver.find_element(By.ID, "blogin").click()
+                print(f"[{index+1}] Login ID: {id_user} untuk nomor: {no_entri}")
+                time.sleep(3)
 
-  # --- PROSES ENTRY DATA ---
-            for _, row in data_akun.iterrows():
-                try:
-                    # 1. Klik menu SPSO (Gunakan Selector untuk teks link)
-                    menu_spso = wait.until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "SPSO")))
-                    menu_spso.click()
-                    time.sleep(1)
+                # --- PROSES ENTRY DATA ---
+                # 1. Klik menu SPSO
+                menu_spso = wait.until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "SPSO")))
+                menu_spso.click()
+                time.sleep(1)
 
-                    # 2. Klik Entry Data SPSO (Gunakan href=?id=11)
-                    btn_entry = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='?id=11']")))
-                    btn_entry.click()
-                    time.sleep(1)
+                # 2. Klik Entry Data SPSO
+                btn_entry = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='?id=11']")))
+                btn_entry.click()
+                time.sleep(1)
 
-                    # 3 & 4. Klik dan Isi kolom Nomor Entry (ID: nspos)
-                    input_entry = wait.until(EC.presence_of_element_located((By.ID, "nspos")))
-                    input_entry.clear()
-                    input_entry.send_keys(str(row['Nomor_Entry']))
-                    
-                    # 5. Klik Simpan (ID: savespos)
-                    btn_simpan = driver.find_element(By.ID, "savespos")
-                    btn_simpan.click()
+                # 3. Isi Nomor Entry
+                input_entry = wait.until(EC.presence_of_element_located((By.ID, "nspos")))
+                input_entry.clear()
+                input_entry.send_keys(no_entri)
+                
+                # 4. Klik Simpan
+                driver.find_element(By.ID, "savespos").click()
 
-                    print(f"✅ Sukses Simpan: {row['Nomor_Entry']} (Akun: {id_user})")
-                    
-                    # Berikan jeda sebentar agar sistem SIAPP selesai memproses simpan
-                    time.sleep(2) 
+                # 5. Klik OK pada Pop-up Info (ID: btnModal)
+                btn_ok = wait.until(EC.element_to_be_clickable((By.ID, "btnModal")))
+                btn_ok.click()
+                print(f"✅ Berhasil Simpan & OK: {no_entri}")
+                
+                # --- JEDA 3 DETIK SETELAH KLIK OK ---
+                time.sleep(3) 
 
-                except Exception as e:
-                    print(f"⚠️ Gagal entry {row['Nomor_Entry']}: {str(e)}")
-                    # Refresh halaman jika robot tersesat
-                    driver.get("https://siapp.dipendajatim.go.id/idxstaf.php")
-                    time.sleep(2)
+                # --- LOGOUT SESSION SETELAH JEDA ---
+                driver.delete_all_cookies()
+                print(f"🔄 Session Logout. Bersiap login data selanjutnya...\n")
 
-            # Logout/Hapus session sebelum berganti akun
-            driver.delete_all_cookies()
+            except Exception as e:
+                print(f"⚠️ Gagal pada baris {index+1} ({no_entri}): {str(e)}")
+                driver.delete_all_cookies()
+                continue
 
         driver.quit()
         print("Selesai memproses semua data.")
