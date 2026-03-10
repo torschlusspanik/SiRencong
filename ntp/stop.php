@@ -30,7 +30,7 @@ if (file_exists("robot.pid")) {
     <title>Stopping Robot - SIAPP</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <meta http-equiv="refresh" content="3;url=spos.php">
+    <meta http-equiv="refresh" content="3;url=ntp.php">
     <style>
         body {
             background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);

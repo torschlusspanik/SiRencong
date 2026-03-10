@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/7/74/Coat_of_arms_of_East_Java.svg">
-    <title>SPSO Auto-Entry Panel</title>
+    <title>SPOS NPP NTP Auto-Entry Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -139,6 +139,13 @@
             font-weight: 500;
             font-size: 0.95rem;
         }
+                .footer {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -155,7 +162,8 @@
                 <div class="card main-card">
                     <div class="card-header-custom">
                         <i class="fa-solid fa-robot fa-3x mb-3"></i>
-                        <h3 class="mb-0">Robot Entri SPSO</h3>
+                        <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/7/74/Coat_of_arms_of_East_Java.svg">
+                        <h3 class="mb-0">Robot Entri SPOS, NPP dan NTP</h3>
                         <p class="text-white-50 mb-0">System Automation for SIAPP</p>
                     </div>
                     
@@ -176,7 +184,7 @@
                             <?php endif; ?>
                         </div>
 
-                        <form action="prosesspos.php" method="POST" enctype="multipart/form-data">
+                        <form action="prosesALL.php" method="POST" enctype="multipart/form-data">
                             
                             <div class="mb-4">
                                 <label class="form-label-custom">Unggah File Data Entry (Opsional jika jalan tanpa upload)</label>
@@ -202,7 +210,7 @@
                             </div>
                         </form>
 
-                        <form id="runOnlyForm" action="prosesspos.php" method="POST" style="display:none;">
+                        <form id="runOnlyForm" action="prosesALL.php" method="POST" style="display:none;">
                             <input type="hidden" name="run_only" value="1">
                         </form>
 
@@ -211,7 +219,6 @@
             </div>
         </div>
     </div>
-
         <div class="footer">
         &copy; 2026 - UPT PPD Jombang. All Rights Reserved.
     </div>

@@ -141,28 +141,42 @@
                             <div class="card-body text-center">
                                 <div class="icon-box text-success"><i class="bi bi-file-earmark-check"></i></div>
                                 <h4 class="fw-bold">SPOS</h4>
-                                <p class="text-muted small">Buka aplikasi Pengentrian SPOS.</p>
+                                <p class="text-muted small">Buka aplikasi Pengentrian Otomatis SPOS.</p>
                                 <span class="badge bg-success">READY</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card p-4 menu-card shadow-sm card-disabled">
+                        <div class="card p-4 menu-card shadow-sm" onclick="location.href='npp/npp.php'">
                             <div class="card-body text-center">
-                                <div class="icon-box text-dark"><i class="bi bi-lock"></i></div>
+                                <div class="icon-box text-success"><i class="bi bi-file-earmark-check"></i></div>
                                 <h4 class="fw-bold">NPP</h4>
-                                <p class="text-muted small">Modul NPP masih terkunci.</p>
+                                <p class="text-muted small">Buka aplikasi Pengentrian Otomatis NPP</p>
+                                <span class="badge bg-success">READY</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card p-4 menu-card shadow-sm card-disabled">
+                        <div class="card p-4 menu-card shadow-sm" onclick="location.href='ntp/ntp.php'">
                             <div class="card-body text-center">
-                                <div class="icon-box text-dark"><i class="bi bi-lock"></i></div>
+                                <div class="icon-box text-success"><i class="bi bi-file-earmark-check"></i></div>
                                 <h4 class="fw-bold">NTP</h4>
-                                <p class="text-muted small">Modul NTP masih terkunci.</p>
+                                <p class="text-muted small">Buka aplikasi Pengentrian Otomatis NTP</p>
+                                <span class="badge bg-success">READY</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="row g-4 justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card p-4 menu-card shadow-sm" onclick="location.href='all/all.php'">
+                            <div class="card-body text-center">
+                                <div class="icon-box text-danger"><i class="bi bi-display-fill"></i></div>
+                                <h4 class="fw-bold">SEMUA SURAT</h4>
+                                <p class="text-muted small">Buka aplikasi Pengentrian Otomatis SPOS,NPP,NTP</p>
+                                <span class="badge bg-danger">READY</span>
+                            </div>
+                        </div>
+                    </div>           </div>
                     </div>
                 </div>
             </div>
@@ -171,7 +185,7 @@
     </div>
 
     <div class="footer">
-        &copy; 2026 Bachtiar - UPT PPD Jombang. All Rights Reserved.
+        &copy; 2026 - UPT PPD Jombang. All Rights Reserved.
     </div>
 
     <script>

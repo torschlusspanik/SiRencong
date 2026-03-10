@@ -28,7 +28,7 @@ function jalankanRobot($log_file, $pid_file) {
     if (preg_match('/python\.exe\s+(\d+)/', $tasklist, $matches)) {
         file_put_contents($pid_file, $matches[1]);
     }
-    header("Location: prosesspos.php");
+    header("Location: prosesall.php");
     exit();
 }
 ?>
@@ -38,8 +38,7 @@ function jalankanRobot($log_file, $pid_file) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/7/74/Coat_of_arms_of_East_Java.svg">
-    <title>Monitoring Log - SPSO Robot</title>
+    <title>Monitoring Log - all Robot</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <meta http-equiv="refresh" content="2"> 
@@ -49,6 +48,7 @@ function jalankanRobot($log_file, $pid_file) {
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
+            flex-direction: column; /* Mengatur arah flex agar footer di bawah */
             align-items: center;
         }
         .main-card {
@@ -124,7 +124,7 @@ function jalankanRobot($log_file, $pid_file) {
                         <div class="d-flex justify-content-between align-items-center px-3">
                             <div class="text-start">
                                 <h4 class="mb-0"><i class="fa-solid fa-terminal me-2"></i> Monitor Terminal</h4>
-                                <small class="text-white-50">SPSO Automation System</small>
+                                <small class="text-white-50">all Automation System</small>
                             </div>
                             <div>
                                 <?php if (file_exists($pid_file)): ?>
@@ -178,6 +178,9 @@ function jalankanRobot($log_file, $pid_file) {
         </div>
     </div>
 
+    <div class="footer">
+        &copy; 2026 - UPT PPD Jombang. All Rights Reserved.
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Otomatis scroll ke bagian bawah log setiap kali halaman dimuat

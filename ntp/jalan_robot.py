@@ -25,7 +25,7 @@ def main():
             return
 
         # Membaca Excel dengan paksa string agar ID Login tidak berubah jadi format ilmiah
-        df = pd.read_excel(FILE_EXCEL, sheet_name='SPOS', dtype=str, engine='openpyxl')
+        df = pd.read_excel(FILE_EXCEL, sheet_name='NTP', dtype=str, engine='openpyxl')
 
         # --- PERBAIKAN: Mengisi sel kosong (NaN) dengan nilai dari baris atasnya ---
         #df = df.ffill()
@@ -80,23 +80,23 @@ def main():
                 time.sleep(3)
 
                 # --- PROSES ENTRY DATA ---
-                # 1. Klik menu SPSO
-                menu_spso = wait.until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "SPSO")))
-                menu_spso.click()
+                # 1. Klik menu NTP
+                menu_NTP = wait.until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "NTP")))
+                menu_NTP.click()
                 time.sleep(1)
 
-                # 2. Klik Entry Data SPSO
-                btn_entry = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='?id=11']")))
+                # 2. Klik Entry Data NTP
+                btn_entry = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='?id=31']")))
                 btn_entry.click()
                 time.sleep(1)
 
                 # 3. Isi Nomor Entry
-                input_entry = wait.until(EC.presence_of_element_located((By.ID, "nspos")))
+                input_entry = wait.until(EC.presence_of_element_located((By.ID, "nontp")))
                 input_entry.clear()
                 input_entry.send_keys(no_entri)
                 
                 # 4. Klik Simpan
-                driver.find_element(By.ID, "savespos").click()
+                driver.find_element(By.ID, "saventp").click()
 
                 # 5. Klik OK pada Pop-up Info (ID: btnModal)
                 btn_ok = wait.until(EC.element_to_be_clickable((By.ID, "btnModal")))

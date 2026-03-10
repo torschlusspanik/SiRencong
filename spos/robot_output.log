@@ -1,3 +1,19 @@
 [1] Login ID: 120201219820720072991 untuk nomor: 2603076537
-⚠️ Gagal pada baris 1 (2603076537): [Errno 13] Permission denied: 'robot_output.log'
+✅ Berhasil Simpan & OK: 2603076537
+🔄 Session Logout. Bersiap login data selanjutnya...
+
 [3] Login ID: 120201219820720072991 untuk nomor: 2603064038
+✅ Berhasil Simpan & OK: 2603064038
+🔄 Session Logout. Bersiap login data selanjutnya...
+
+[5] Login ID: 120291019860720072992 untuk nomor: 2603071699
+✅ Berhasil Simpan & OK: 2603071699
+🔄 Session Logout. Bersiap login data selanjutnya...
+
+[7] Login ID: 198311252010011005 untuk nomor: 2603099049
+✅ Berhasil Simpan & OK: 2603099049
+🔄 Session Logout. Bersiap login data selanjutnya...
+
+[9] Login ID: 198311252010011005 untuk nomor: 2603082823
+⚠️ Gagal pada baris 9 (2603082823): HTTPConnectionPool(host='localhost', port=54926): Max retries exceeded with url: /session/f96979952e83cefa29191e5ecb03cfd6/element (Caused by NewConnectionError("HTTPConnection(host='localhost', port=54926): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Terjadi kesalahan sistem: HTTPConnectionPool(host='localhost', port=54926): Max retries exceeded with url: /session/f96979952e83cefa29191e5ecb03cfd6/cookie (Caused by NewConnectionError("HTTPConnection(host='localhost', port=54926): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))

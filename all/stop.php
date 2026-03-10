@@ -26,16 +26,16 @@ if (file_exists("robot.pid")) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/7/74/Coat_of_arms_of_East_Java.svg">
     <title>Stopping Robot - SIAPP</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <meta http-equiv="refresh" content="3;url=spos.php">
+    <meta http-equiv="refresh" content="3;url=all.php">
     <style>
         body {
             background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column; /* Mengatur arah flex agar footer di bawah */
             align-items: center;
             font-family: 'Segoe UI', sans-serif;
         }
@@ -95,6 +95,9 @@ if (file_exists("robot.pid")) {
         </div>
     </div>
 
+        <div class="footer">
+        &copy; 2026 - UPT PPD Jombang. All Rights Reserved.
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
